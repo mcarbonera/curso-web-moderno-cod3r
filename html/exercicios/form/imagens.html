@@ -1,0 +1,225 @@
+<html>
+    <head>
+        <title>Imagens</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+
+                <div id="wm-slider" class="wm-slider">
+                    <div class="button-left slider-button">
+                        <span> < </span>
+                    </div>
+                        <div class="button-right slider-button">
+                        <span> > </span>
+                    </div>
+        
+                    <div class="vm-item showing">
+                        <p>
+                            <img src="http://files.cod3r.com.br/curso-web/imagem1.jpg"
+                                alt="Muro da Cidade" width="513" height="342"
+                                title="Muro da cidade por Tarso Bessa">
+                        </p>
+                    </div>
+                    <div class="vm-item">
+                        <p>
+                            <img src="http://files.cod3r.com.br/curso-web/imagem2.gif"
+                                alt="Intro Cod3r" height="342">
+                        </p>
+                    </div>
+                    <div class="vm-item">
+                        <p class="circular">
+                            <img src="http://files.cod3r.com.br/curso-web/imagem3.png"
+                                alt="Rio de Janeiro" height="342">
+                        </p>
+                    </div>
+            
+                    <div class="vm-item">
+                        <p class="texto">
+                            <img src="http://files.cod3r.com.br/curso-web/avatar.jpg"
+                                alt="Avatar" height="50" align="left"> 
+                            a;sdfkjas;ldkfjaslda;skldjf;alsdkjf
+                            asd;flakjsdf;akjsdf;ldkfjasldasd;fkas;dlkfja;sldjfk
+                            ;lskdjf;laskjdf;laskjdfls;djfklas;dlfjk
+                            ;alskdjf;laskdjflkjasdfasdfa
+                            a;lsdkjfa;sdkfajsd;flakjsdf;asld
+                            as;dflkja;lsdkfja;lsdkfja;
+                            ;falsdkjf;alsdkjf;
+                        </p>
+                    </div>
+            
+                    <div class="vm-item">
+                        <p class="cidade"></p>
+                    </div>
+            
+                    <div class="vm-item">
+                        <p>
+                            <picture>
+                                <source srcset="http://files.cod3r.com.br/curso-web/logo-larga.png"
+                                    media="(min-width: 600px)">
+                                <img src="http://files.cod3r.com.br/curso-web/logo-estreita.png" alt="Logo">
+                            </picture>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <style>
+        /* position our container in the middle */
+        .container {
+            width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .circular {
+            width: 513px;
+            background-color: #444;
+        }
+
+        .texto {
+            width: 400px;     
+        }
+
+        .texto img {
+            margin-right: 10px;
+        }
+
+        .cidade {
+            width: 513px;
+            height: 342px;
+            background-image: url("http://files.cod3r.com.br/curso-web/imagem4.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        #wm-slider {
+            position: relative;
+            height: 300px;
+            padding: 0;
+            margin: 0;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .vm-item {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 1;
+            /* change the value for a faster or slower transition between slides */
+            -webkit-transition: opacity 0.5s;
+            -o-transition: opacity 0.5s;
+            transition: opacity 0.5s;
+        }
+
+        /* class to show the current slide */
+        .showing {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        /* position the buttons and make them green */
+        .slider-button {
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            width: 40px;
+            height: 40px;
+            background-color: #009900;
+            z-index: 3;
+            position: absolute;
+            text-align: center;
+            border-radius: 20%;
+            -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        /*posion the left an right button horizontally */
+        .button-left {
+            position: absolute;
+        }
+        .button-right {
+            position: relative;
+            right: -470px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // grab all the slides
+            let slides = document.querySelectorAll('#wm-slider .vm-item')
+
+            // set initial slide
+            let currentSlide = 0
+            //grab both buttons
+            const nextButton = document.querySelector('.button-right')
+            const prevButton = document.querySelector('.button-left')
+            
+            function nextSlide() {
+                // current slide becomes hidden
+                slides[currentSlide].className = 'vm-item'
+                // set the current slide as the next one
+                currentSlide = (currentSlide + 1) % slides.length
+                // add the class showing to the slide to make it visible
+                slides[currentSlide].className = 'vm-item showing'
+            }
+            function prevSlide() {
+                // current slide becomes hidden
+                slides[currentSlide].className = 'vm-item'
+                // set the current slide as the previous one
+                currentSlide = (currentSlide - 1) % slides.length
+                if (currentSlide == -1) {
+                    currentSlide = slides.length - 1
+                }
+                // add the class showing to the slide to make it visible
+                slides[currentSlide].className = 'vm-item showing'
+            }
+            nextButton.addEventListener('click', () => {
+                // go to next slide on click of the button
+                nextSlide()
+            })
+            prevButton.addEventListener('click', () => {
+                // go to previous slide on click of the button
+                prevSlide()
+            })
+            /* VERTICALLY ALIGN THE BUTTONS IN THE MIDDLE OF THE SLIDER TEXT
+            */
+            function positionSliderButton() {
+                // grab the slider
+                let slider = document.querySelector('.vm-item')
+
+                // grab its height
+                let sliderHeight = slider.getBoundingClientRect().height
+                // grab the button
+                let buttons = document.querySelectorAll('.slider-button')
+                // for each of the buttons
+                for (button of buttons) {
+                // get their height
+                let buttonHeight = button.getBoundingClientRect().height
+                // position them right in the middle of the text,
+                button.style.top = ((sliderHeight - buttonHeight) / 2).toString() + 'px'
+                }
+            }
+            positionSliderButton()
+            // whenever the window is resize, reposition the buttons
+            window.addEventListener('resize', () => {
+                positionSliderButton()
+            })
+        })
+    </script>
+</html>

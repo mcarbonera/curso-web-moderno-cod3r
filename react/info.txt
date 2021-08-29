@@ -1,0 +1,16 @@
+comandos:
+
+npm install -g create-react-app
+create-react-app exercicios
+
+cd exercicios
+npm start
+
+
+
+
+______________________________________
+
+create-react-app calculadora
+cd calculadora
+npm start

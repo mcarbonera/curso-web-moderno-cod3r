@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Formulario</title>
+    </head>
+    <body>
+        <h1>Formulario</h1>
+
+        <form>
+            <input type="hidden" name="id" value="3">
+            <input type="text" name="nome">
+            <input type="password" name="senha" id="senha"><br>
+            <textarea name="bio" id="bio" cols="30" rows="10"></textarea>
+            <div>
+                <input type="radio" name="tipo" id="tipo1" value="admin"> Admin
+                <input type="radio" name="tipo" id="tipo2" value="regular"> Regular
+                <input type="radio" name="tipo" id="tipo3" value="professor"> Professor
+            </div>
+            <div>
+                <input type="checkbox" name="ativo" id="ativo"> Ativo
+            </div>
+
+            <select name="estado" type="select">
+                <option value="">Selecione</option>
+                <option value="acre">Acre</option>
+                <option value="bahia">Bahia</option>
+                <option value="ceara">Ceará</option>
+            </select>
+
+            <select name="interesses" type="select" multiple size="5">
+                <option value="js">javascript</option>
+                <option value="java">java</option>
+                <option value="php">PHP</option>
+                <option value="python">Python</option>
+                <option value="go">Go</option>
+                <option value="c">C</option>
+            </select>
+
+            <button formaction="http://localhost:3003/usuarios" 
+            formmethod="POST">Incluir</button>
+            <button formaction="http://localhost:3003/usuarios" 
+            formmethod="POST">Alterar</button>
+        </form>
+
+        <style>
+            input,
+            textarea {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            input[type=radio],
+            input[type=checkbox],
+            input[type=select] {
+                display: inline;
+            }
+        </style>
+    </body>
+</html>

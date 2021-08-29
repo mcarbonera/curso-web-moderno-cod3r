@@ -1,0 +1,8 @@
+-- backend
+npm init -y
+npm install --save json-server
+
+-- frontend
+create-react-app frontend
+npm install --save axios bootstrap font-awesome react-router react-router-dom
+npm start

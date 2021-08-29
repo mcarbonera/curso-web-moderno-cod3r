@@ -1,0 +1,239 @@
+db.help()
+show dbs
+show collections
+use wm
+
+db.createCollection('estados')
+db.estados.drop()
+db.estados.find()
+
+db.estados.insertOne({
+    nome: "Acre", 
+    sigla: "AC", 
+    regiao: "Norte"
+})
+
+db.estados.insertOne({
+    nome: "Alagoas", 
+    sigla: "AL", 
+    regiao: "Nordeste", 
+    populacao: 3322000
+})
+
+db.estados.insertOne({ 
+    nome: "Rio de Janeiro", 
+    sigla: "RJ", 
+    regiao: "Sudeste", 
+    cidades: [{ 
+        _id: ObjectId(),
+        nome: "Niteroi", 
+        area: 133.9, 
+        populacao: 486466 
+    }]
+})
+
+db.estados.insertOne({ 
+    nome: "São Paulo", 
+    sigla: "SP", 
+    regiao: "Sudeste", 
+    cidades: [
+        { 
+            _id: ObjectId(),
+            nome: "Campinas", 
+            area: 795.7,
+            prefeito: "Jonas", 
+            populacao: 1081000 
+        },
+        { 
+            _id: ObjectId(),
+            nome: "Guarulhos", 
+            populacao: 1325000 
+        },
+        { 
+            _id: ObjectId(),
+            nome: "Sorocaba", 
+            distanciaCapital: 87,
+            populacao: 644919
+        }
+    ]
+})
+
+db.estados.findOne({sigla: "RJ"})
+db.estados.find({$or: [{sigla: "RJ"}, {sigla: "AC"}]})
+db.estados.find({populacao: {$exists: true}})
+db.estados.find().skip(1).limit(2)
+db.estados.count()
+db.estados.find({sigla: "SP"}, {nome: 1, sigla: 1, _id: 0})
+db.estados.find({sigla: "SP"}, {"cidades.nome": 1, _id: 0})
+
+        AGREGATE
+
+db.estados.aggregate([
+    { $project: { nome: 1, "cidades.nome": 1, _id: 0 } }
+])
+
+db.estados.aggregate([
+    { $project: { populacao: { $sum: "$cidades.populacao" }, sigla: 1, _id: 0 } }
+])
+
+db.estados.aggregate([
+    { $project: { populacao: { $sum: "$cidades.populacao" }, sigla: 1, _id: 0 } },
+    { $group: { _id: null, populacaoTotal: { $sum: "$populacao" } } }
+])
+
+db.estados.aggregate([
+    { $project: { populacao: { $sum: "$cidades.populacao" }, sigla: 1, _id: 0 } },
+    { $group: { _id: null, populacaoTotal: { $sum: "$populacao" } } },
+    { $project: { _id: 0, populacaoTotal: 1 } }
+])
+
+        MAIS CONSULTAS
+
+db.estados.aggregate([
+    { $match: { "cidades.nome": "Sorocaba" }},
+    { $unwind: "$cidades" }
+])
+
+db.estados.aggregate([
+    { $match: { "cidades.nome": "Sorocaba" }},
+    { $unwind: "$cidades" },
+    { $match: { "cidades.nome": "Sorocaba" } }
+])
+
+db.estados.aggregate([
+    { $match: { "cidades.nome": "Sorocaba" }},
+    { $unwind: "$cidades" },
+    { $match: { "cidades.nome": "Sorocaba" }},
+    { $project: { _id: "$cidades._id" }}
+])
+
+        UPDATE
+
+db.estados.find()
+db.estados.update({sigla: "SP"},{$set: {populacao: 45000000}})
+db.estados.update({sigla: "AL"},{$set: {cidades: [{nome: "Sergipe"}]}})
+
+db.estados.update({sigla: "SP"},
+    {$push: {cidades: {nome: "Santos", populacao: 433966}}})
+
+db.estados.find({ populacao: {$exists: true}}, {_id: 0, nome: 1})
+
+        DELETE
+
+db.estados.find()
+db.estados.count()
+db.estados.deleteOne({sigla: "AC"})
+db.estados.deleteOne({populacao: {$exists: true}})
+
+
+db.estados.update({sigla: "RJ"},{$set: {populacao: 16720000}})
+db.estados.update({sigla: "SP"},{$set: {populacao: 45000000}})
+
+db.estados.deleteOne({populacao: {$exists: true}})
+
+db.estados.deleteMany({populacao: {$lt: 20000000}})
+
+        INSERIR EMPRESAS
+
+db.empresas.insertOne({
+    nome: "Bradesco",
+    estadoId: ObjectId("610de05ee03d375dc5f8577e")
+})
+db.empresas.find()
+db.empresas.insertOne({
+    nome: "Vale",
+    cidadeId: ObjectId("303030303030303030303033")
+})
+
+db.empresas.deleteOne({nome: "Bradesco"})
+
+        LOOKUP
+
+db.empresas.aggregate([
+    { $match: {nome: "Bradesco"}}
+])
+
+db.empresas.aggregate([
+    { $match: {nome: "Bradesco"}},
+    { $lookup: {
+        from: "estados",
+        localField: "estadoId",
+        foreignField: "_id",
+        as: "estado"
+    }}
+])
+
+db.empresas.aggregate([
+    { $match: {nome: "Bradesco"}},
+    { $lookup: {
+        from: "estados",
+        localField: "estadoId",
+        foreignField: "_id",
+        as: "estado"
+    }},
+    { $unwind: "$estado"}
+])
+
+db.empresas.aggregate([
+    { $match: {nome: "Vale"}},
+])
+
+db.empresas.aggregate([
+    { $match: {nome: "Vale"}},
+    { $lookup: {
+        from: "estados",
+        localField: "cidadeId",
+        foreignField: "cidades._id",
+        as: "estado"
+    }}
+])
+
+db.empresas.aggregate([
+    { $match: {nome: "Vale"}},
+    { $lookup: {
+        from: "estados",
+        localField: "cidadeId",
+        foreignField: "cidades._id",
+        as: "estado"
+    }},
+    { $unwind: "$estado"}
+])
+
+db.empresas.aggregate([
+    { $match: {nome: "Vale"}},
+    { $lookup: {
+        from: "estados",
+        localField: "cidadeId",
+        foreignField: "cidades._id",
+        as: "estado"
+    }},
+    { $unwind: "$estado"},
+    { $unwind: "$estado.cidades"}    
+])
+
+db.empresas.aggregate([
+    { $match: {nome: "Vale"}},
+    { $lookup: {
+        from: "estados",
+        localField: "cidadeId",
+        foreignField: "cidades._id",
+        as: "estado"
+    }},
+    { $unwind: "$estado"},
+    { $unwind: "$estado.cidades"},
+    { $addFields: { mesmaCidade: {$cmp: ["$estado.cidades._id", "$cidadeId"]} }}
+])
+
+db.empresas.aggregate([
+    { $match: {nome: "Vale"}},
+    { $lookup: {
+        from: "estados",
+        localField: "cidadeId",
+        foreignField: "cidades._id",
+        as: "estado"
+    }},
+    { $unwind: "$estado"},
+    { $unwind: "$estado.cidades"},
+    { $addFields: { mesmaCidade: {$cmp: ["$estado.cidades._id", "$cidadeId"]} }},
+    { $match: {mesmaCidade: 0}},
+])

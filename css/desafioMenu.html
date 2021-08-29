@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Desafio Menu</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: lightgray;
+        }
+
+        header {
+            background-color: rgb(59, 53, 53);
+            display: flex;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            padding: 10px;
+            border-bottom: solid 4px rgb(47, 255, 255);
+        }
+
+        .logo {
+            
+        }
+
+        #logo-imagem {
+            width: 200px;
+            height: auto;
+        }
+        
+        .menu {
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .menu > ul {
+            padding: 0px;
+            margin: 10px 35px;
+        }
+        .menu > ul > li {
+            display: inline-block;
+        }
+        .menu > ul > li > a {
+            font-style: normal;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0px 5px;
+            border: solid 5px rgb(59, 53, 53);
+            box-sizing: border-box;
+        }
+        .menu > ul > li > a:hover, 
+        .menu a.selected {
+            background: rgb(47, 255, 255);
+            border-radius: 25px;
+            color: black;
+            border: solid 5px rgb(47, 255, 255);
+        }
+
+        .autenticacao {
+            float: right;
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
+        .autenticacao > a {
+            font-style: normal;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0px 5px;
+        }
+        .botao-destaque {
+            background-color: rgb(255, 29, 29);
+            border-radius: 25px;
+            padding: 8px 8px;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            right: 5px;
+            margin-right: 10px;
+
+            background-color: rgb(119, 119, 119);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+        }
+        
+        @media (min-width: 600px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                display: none;
+            }
+        }
+
+        @media (max-width: 730px) {
+            .autenticacao {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="logo">
+            <a href="#inicio">
+                <img id="logo-imagem" src="http://files.cod3r.com.br/curso-web/logo.png" alt="Logo" />
+            </a>
+        </div>
+        
+        <nav class="menu">
+            <ul>
+                <li>
+                    <a href="#inicio">Início</a>
+                </li>
+                <li>
+                    <a href="#cursos">Cursos</a>
+                </li>
+                <li>
+                    <a href="#sobre">Sobre</a>
+                </li>
+                <li>
+                    <a href="#contato">Contato</a>
+                </li>
+            </ul>
+        </nav>
+        <aside class="autenticacao">
+            <a href="#login">Login</a>
+            <a href="#registar" class="botao-destaque">Registrar</a>
+        </aside>
+        <button class="menu-toggle">
+            <i class="fa fa-lg fa-bars"></i>
+        </button>
+    </header>
+
+    <script>
+        /* window.onhashchange = function(e) {} */
+        var selecaoAtual = null;
+        window.addEventListener('hashchange', function(e){
+            console.log(e)
+
+            if(selecaoAtual) {
+                var elem = document.querySelectorAll(`li > a[href='${selecaoAtual}']`)
+                if(elem && elem.length > 0) {
+                    elem[0].classList.toggle('selected')
+                }
+            }
+
+            var hash = location.hash;
+            var elem = document.querySelectorAll(`li > a[href='${hash}']`)
+            if(elem && elem.length > 0) {
+                elem[0].classList.toggle('selected')
+                selecaoAtual = hash
+            } else {
+                selecaoAtual = null
+            }
+        })
+    </script>
+</body>
+
+</html>
