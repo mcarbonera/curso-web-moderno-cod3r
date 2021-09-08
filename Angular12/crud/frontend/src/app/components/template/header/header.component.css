@@ -1,0 +1,27 @@
+.header {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 20px;
+    
+    background: linear-gradient(to right, rgb(0, 177, 124) 1%, rgb(146, 248, 255) 99%);
+    color: rgb(233, 255, 250);
+}
+
+.header a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header .logo {
+    max-height: 32px;
+}
+
+.header .title-group {
+    padding-left: 25px;
+}
+
+.header .title-group i {
+    padding-right: 5px;
+}

@@ -1,0 +1,17 @@
+# plugin Vetur #
+
+npm i -g @vue/cli
+vue create calculator
+
+cd calculator
+npm run serve
+
+
+
+
+# montyhall
+cd vue
+vue create montyhall
+
+cd montyhall
+npm run serve

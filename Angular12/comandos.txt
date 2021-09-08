@@ -1,0 +1,32 @@
+# Criando backend (dentro da pasta backend) ___________________ BACKEND
+npm init -y
+npm install json-server
+
+# Criar arquivo db.json
+# Popular informacoes
+# inserir script em package.json:
+"start": "json-server --watch db.json --port 3001"
+
+# iniciar servidor com:
+npm start
+
+# Criando frontend (dentro da pasta backend) ___________________ FRONTEND
+npm i -g @angular/cli
+ng new frontend --minimal
+
+# Rodar frontend
+cd frontend
+npm start
+
+
+# instalar angular/material
+ng add @angular/material
+
+
+# Criar Componente
+ng generate component components/template/header
+ng generate component components/template/footer
+ng generate component components/template/nav
+
+# Criar Serviços
+ng generate service services/product

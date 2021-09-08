@@ -1,0 +1,14 @@
+# Criar Aplicacao
+vue create most-used-words
+
+# Entrar na pasta
+cd most-used-words
+
+# Biblioteca de componentes para o Vue
+vue add vuetify
+
+# Adicionar Biblioteca Electron
+vue add electron-builder
+
+# Rodar:
+npm run electron:serve
