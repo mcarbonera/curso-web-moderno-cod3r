@@ -1,0 +1,22 @@
+npx create-next-app fundamentos
+npm run dev
+
+
+
+npm run build
+npm start
+
+
+
+npx create-next-app next-crud
+
+* tailwind *
+tailwind - seguir documentação para instalar
+baixar plugin Tailwind CSS IntelliSense
+
+* typescript *
+criar arquivo tsconfig.json
+npm install --save-dev @types/react typescript
+
+* firebase *
+npm install firebase
