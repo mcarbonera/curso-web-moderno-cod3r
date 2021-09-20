@@ -27,6 +27,23 @@ ng add @angular/material
 ng generate component components/template/header
 ng generate component components/template/footer
 ng generate component components/template/nav
+ng generate component views/home
+ng generate component views/product-crud
+ng generate component components/product/product-create
+ng generate component components/product/product-read
+ng generate component components/product/product-update
+ng generate component components/product/product-delete
+
+# Criar diretivas:
+ng generate directive directives/red
+ng generate directive directives/for
 
 # Criar Serviços
-ng generate service services/product
+ng generate service components/product/product
+ng generate service components/template/header/header
+
+
+Angular Material Schematics
+https://v7.material.angular.io/guide/schematics
+ng generate @angular/material:table <component-name>
+ng generate @angular/material:table components/product/product-read2
