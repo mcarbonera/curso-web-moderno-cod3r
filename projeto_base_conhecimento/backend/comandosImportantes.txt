@@ -1,0 +1,29 @@
+Postgres
+    -> Criar Banco chamado knowledge
+
+Mongo
+    -> Dentro do Cli da imagem do docker:
+    -> mongosh
+    -> A partir disso pode começar.
+
+Instalar knex globalmente: 
+    npm install -g knex
+Inicializar knex
+    knex init
+Criar migrations
+    knex migrate:make create_table_users
+    knex migrate:make create_table_categories
+    knex migrate:make create_table_articles
+Rodar essas benditas migrations:
+    knex migrate:latest
+Retroceder as versoes:
+    knex migrate:rollback
+
+knex migrate:make add_deleted_at_table_users
+knex migrate:latest
+
+Rodar backend: 
+    npm start
+
+Rodar frontend: 
+    -> npm run serve -- --port 8081    
