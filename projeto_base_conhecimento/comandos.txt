@@ -1,0 +1,2 @@
+vue create frontend
+npm run serve
